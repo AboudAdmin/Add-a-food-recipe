@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وصفات الطعام السهلة</title>
+    <style>
+        /* تصميم بسيط */
+        body { font-family: Arial, sans-serif; }
+        .recipe { cursor: pointer; margin: 10px 0; }
+        .recipe img { width: 100px; height: 100px; }
+    </style>
+</head>
+<body>
+    <h1>وصفات الطعام السهلة</h1>
+    <div id="recipes">
+        <!-- الوصفات ستظهر هنا -->
+    </div>
+    <h2>إضافة وصفة جديدة</h2>
+    <form id="add-recipe-form">
+        <input type="text" id="name" placeholder="اسم الوصفة" required>
+        <input type="url" id="image" placeholder="رابط الصورة" required>
+        <textarea id="ingredients" placeholder="المكونات" required></textarea>
+        <textarea id="steps" placeholder="خطوات التحضير" required></textarea>
+        <button type="submit">إضافة الوصفة</button>
+    </form>
+    <script>
+        const recipes = [
+            {
+                name: "سلطة الفواكه",
+                image: "https://example.com/fruit-salad.jpg",
+                ingredients: "تفاح، برتقال، موز",
+                steps: "قطع الفواكه، اخلطها معاً"
+            }
+        ];
+
+        function displayRecipes() {
+            const recipesDiv = document.getElementById('recipes');
+            recipesDiv.innerHTML = '';
+            recipes.forEach((recipe, index) => {
+                const recipeDiv = document.createElement('div');
+                recipeDiv.className = 'recipe';
+                recipeDiv.innerHTML = `<img src="${recipe.image}" alt="${recipe.name}">
+                                      <h3>${recipe.name}</h3>`;
+                recipeDiv.onclick = () => showRecipe(index);
+                recipesDiv.appendChild(recipeDiv);
+            });
+        }
+
+        function showRecipe(index) {
+            const recipe = recipes[index];
+            alert(`المكونات: ${recipe.ingredients}\n\nالخطوات: ${recipe.steps}`);
+        }
+
+        document.getElementById('add-recipe-form').onsubmit = function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const image = document.getElementById('image').value;
+            const ingredients = document.getElementById('ingredients').value;
+            const steps = document.getElementById('steps').value;
+            recipes.push({ name, image, ingredients, steps });
+            displayRecipes();
+            event.target.reset();
+        };
+
+        displayRecipes();
+    </script>
+</body>
+</html>
+ 
